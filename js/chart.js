@@ -19,7 +19,8 @@ function drawImage(image) {
       }
    }
 
-   // IMAGE CANVAS
+   // SET IMAGE CANVAS
+   $('body').append('<canvas id="myCanvas"></canvas>')
    var canvas = $('#myCanvas')[0];
    canvas.width = image.width;
    canvas.height = image.height;
