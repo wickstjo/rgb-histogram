@@ -66,16 +66,6 @@ function drawImage(image) {
       data.blue.values[data.content[i + 2]] += 1;
    }
 
-   // MAKE CLUSTERS FOR READABILITY
-   data.red.values = clusterify(data.red.values);
-   data.green.values = clusterify(data.green.values);
-   data.blue.values = clusterify(data.blue.values);
-
-   // FIND HIGHEST VALUE OF EACH COLOR
-   data.red.highest = d3.max(data.red.values);
-   data.green.highest = d3.max(data.green.values);
-   data.blue.highest = d3.max(data.blue.values);
-
    // CONSTRUCT DIV FOR GRAPH
    var div = '<div id="box"></div>';
    $('body').append(div);
@@ -93,8 +83,19 @@ function drawImage(image) {
          color: 'white',
          size: 1
       },
-      opacity: 0.6
+      opacity: 0.6,
+      cluster: 15
    }
+
+   // MAKE CLUSTERS FOR READABILITY
+   data.red.values = clusterify(data.red.values, settings.cluster);
+   data.green.values = clusterify(data.green.values, settings.cluster);
+   data.blue.values = clusterify(data.blue.values, settings.cluster);
+
+   // FIND HIGHEST VALUE OF EACH COLOR
+   data.red.highest = d3.max(data.red.values);
+   data.green.highest = d3.max(data.green.values);
+   data.blue.highest = d3.max(data.blue.values);
 
    // Y-SCALING -- BASED ON OVERALL HIGHEST VALUE
    var yScale = d3.scaleLinear()
@@ -111,19 +112,17 @@ function drawImage(image) {
       .x((data, i) => { return xScale(i) })
       .y0(settings.height - yScale(0))
       .y1((data) => { return settings.height - yScale(data) })
-      .curve(d3.curveBasis)
+
 
    // CONVERT XY OBJECTS INTO D3 PATHS
    data.red.path = pathify(data.red.values);
    data.green.path = pathify(data.green.values);
    data.blue.path = pathify(data.blue.values);
-   
+
    log(data)
 
    // GENERATE GRAPH CANVAS
    var canvas = d3.select('#box').append('svg')
-
-      // ADD CUSTOMIZED PROPERTIES
       .attr('width', settings.width)
       .attr('height', settings.height)
 
@@ -150,5 +149,5 @@ function drawImage(image) {
       .attr('stroke-width', settings.border.size)
       .attr('d', data.blue.path)
       .attr('opacity', settings.opacity)
-      
+
 }

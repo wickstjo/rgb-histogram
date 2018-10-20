@@ -1,24 +1,28 @@
 // OBJECTIFY
-function clusterify(colors) {
+function clusterify(colors, size) {
 
-   var cluster = {
-      values: [],
-      size: 15
-   }
+   // CLUSTER SETTINGS
+   var cluster = [];
 
-   for (var x = 0; x < colors.length - 1; x+= cluster.size) {
+   // LOOP THROUGH ALL COLORS, INCREMENT WITH CLUSTER SIZE
+   for (var x = 0; x < colors.length - 1; x+= size) {
 
+      // RESET VALUE
       var value = 0;
       
-      for (var y = 0; y < cluster.size; y++) {
+      // ADD CLUSTER VALUES TOGETHER
+      for (var y = 0; y < size; y++) {
          value += colors[x + y];
       }
 
-      value = value / cluster.size;
-      cluster.values.push(value)
+      // DIVIDE SUM BY CLOSTER SIZE
+      value = value / size;
+
+      // PUSH INTO CONTAINER
+      cluster.push(value)
    }
 
-   return cluster.values;
+   return cluster;
 }
 
 // SHORTHAND FOR CONSOLE LOGGING
