@@ -1,15 +1,38 @@
 body {
    background: url('img/bg.png');
-	color: #505050;
 	margin: 0px;
-	padding: 30px;
+   padding: 30px;
 }
 
-#box {
+table, tr, td {
+   background: transparent;
+	border: 0px solid black;
+	margin: 0px;
+	padding: 0px;
+	border-spacing: 0px;
+	vertical-align: top;
+}
+
+#relational, #red, #green, #blue {
    background: url('img/pattern.png');
    border: 4px solid white;
-   color: #505050;
    padding: 0px;
    margin: 0px;
-   height: 800px;
+}
+
+#red, #green, #blue {
+   margin-bottom: 15px;
+}
+
+#red {
+   margin-right: 7.5px;
+}
+
+#green {
+   margin-right: 7.5px;
+   margin-left: 7.5px;
+}
+
+#blue {
+   margin-left: 7.5px;
 }
