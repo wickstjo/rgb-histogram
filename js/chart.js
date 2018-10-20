@@ -1,6 +1,6 @@
 // CREATE IMAGE OBJECT
 var image = new Image();
-image.src = 'data/4.jpg';
+image.src = 'data/3.jpg';
 
 // WHEN IMAGE OBJECT IS LOADED, RENDER CHART
 window.onload = () => { drawImage(image); };
@@ -66,6 +66,11 @@ function drawImage(image) {
       data.blue.values[data.content[i + 2]] += 1;
    }
 
+   // MAKE CLUSTERS FOR READABILITY
+   data.red.values = clusterify(data.red.values);
+   data.green.values = clusterify(data.green.values);
+   data.blue.values = clusterify(data.blue.values);
+
    // FIND HIGHEST VALUE OF EACH COLOR
    data.red.highest = d3.max(data.red.values);
    data.green.highest = d3.max(data.green.values);
@@ -104,8 +109,8 @@ function drawImage(image) {
    // GENERATE PATH METHOD
    var pathify = d3.area()
       .x((data, i) => { return xScale(i) })
-      .y0(yScale(0))
-      .y1((data) => { return yScale(data) })
+      .y0(settings.height - yScale(0))
+      .y1((data) => { return settings.height - yScale(data) })
       .curve(d3.curveBasis)
 
    // CONVERT XY OBJECTS INTO D3 PATHS
