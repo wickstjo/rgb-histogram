@@ -97,7 +97,7 @@ function relational_paths(data, settings) {
 
    // Y-SCALING -- BASED ON OVERALL HIGHEST VALUE
    var yScale = d3.scaleLinear()
-      .domain([0, d3.max([data.red.highest, data.blue.highest, data.green.highest])])
+      .domain([0, d3.max([data.red.highest, data.blue.highest, data.green.highest]) * 1.01])
       .range([0, settings.height.large])
 
    // X-SCALING
@@ -137,9 +137,10 @@ function relational_paths(data, settings) {
             .attr('opacity', settings.opacity)
 
          // ADD DOTS
-         canvas.selectAll('circle')
+         canvas.selectAll('circle.group-' + color)
             .data(data[color].values)
                .enter().append('circle')
+                  .attr('class', () => { return 'group-' + color })
                   .attr('cx', (data, i) => { return xScale(i) })
                   .attr('cy', (data) => { return settings.height.large - yScale(data) })
                   .attr('r', dotsize)
