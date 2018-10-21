@@ -36,7 +36,7 @@ function drawImage(image) {
    // RENDER THEM IN
    $('body').append(selectors);
 
-   // FETCH IMAGE DATA & CONSTRUCT DATA OBJECT
+   // FETCH IMAGE DATA & CONSTRUCT PLACEHOLDERS FOR PARSED DATA
    var data = {
       content: context.getImageData(0, 0, canvas.width, canvas.height).data,
       red: {
@@ -65,7 +65,7 @@ function drawImage(image) {
       }
    }
 
-   // CSS SETTINGS -- HELP OBJECT FOR SETTINGS
+   // CSS SETTINGS
    var css = {
       border: { size: 4 },
       padding: { body: 30, div: 15 }
@@ -86,19 +86,26 @@ function drawImage(image) {
          green: '#5ECA66',
          blue: '#7D84DA', 
       },
-      border: {
-         color: 'white',
-         size: 0
+      dot: {
+         red: '#D86666',
+         green: '#5ECA66',
+         blue: '#7D84DA', 
+      },
+      radius: {
+         large: 5,
+         medium: 3,
+         small: 1.5
       },
       opacity: 0.6,
-      cluster: 15
+      cluster: 15,
+      multiplier: 1.02
    }
 
    // SET SCALED WIDTHS AND HEIGHTS OF SELECTORS
-   $('#red, #green, #blue').width(settings.width.small)
-   $('#red, #green, #blue').height(settings.height.small)
-   $('#relational').width(settings.width.large)
-   $('#relational').height(settings.height.large)
+   $('#red, #green, #blue').width(settings.width.small);
+   $('#red, #green, #blue').height(settings.height.small);
+   $('#relational').width(settings.width.large);
+   $('#relational').height(settings.height.large);
 
    // FILL RGB ARRAYS WITH 255 x 0
    for (var z = 0; z < 256; z++) {
@@ -124,85 +131,9 @@ function drawImage(image) {
    data.green.highest = d3.max(data.green.values);
    data.blue.highest = d3.max(data.blue.values);
 
-   // GENERATE & PUSH RELATIONAL PATHS
+   // GENERATE CHART FOR RELATIONAL & SOLO CHARTS & RETURN MODIFIED DATA OBJECT
    data = relational_paths(data, settings);
-
-      // GENERATE GRAPH CANVAS
-      var canvas = d3.select('#relational').append('svg')
-         .attr('width', settings.width.large)
-         .attr('height', settings.height.large)
-
-      // RED PATH
-      canvas.append('path')
-         .attr('fill', settings.background.red)
-         .attr('stroke', settings.border.color)
-         .attr('stroke-width', settings.border.size)
-         .attr('d', data.red.paths.relational)
-         .attr('opacity', settings.opacity)
-
-      // GREEN PATH
-      canvas.append('path')
-         .attr('fill', settings.background.green)
-         .attr('stroke', settings.border.color)
-         .attr('stroke-width', settings.border.size)
-         .attr('d', data.green.paths.relational)
-         .attr('opacity', settings.opacity)
-
-      // BLUE PATH
-      canvas.append('path')
-         .attr('fill', settings.background.blue)
-         .attr('stroke', settings.border.color)
-         .attr('stroke-width', settings.border.size)
-         .attr('d', data.blue.paths.relational)
-         .attr('opacity', settings.opacity)
-
-   // GENERATE & PUSH RED PATH
-   data.red.paths.solo = solo_path(data.red, settings);
-
-      // GENERATE GRAPH CANVAS
-      var canvas = d3.select('#red').append('svg')
-         .attr('width', settings.width.small)
-         .attr('height', settings.height.small)
-
-      // RED PATH
-      canvas.append('path')
-         .attr('fill', settings.background.red)
-         .attr('stroke', settings.border.color)
-         .attr('stroke-width', settings.border.size)
-         .attr('d', data.red.paths.solo)
-         .attr('opacity', settings.opacity)
-
-   // GENERATE & PUSH GREEN PATH
-   data.green.paths.solo = solo_path(data.green, settings);
-
-      // GENERATE GRAPH CANVAS
-      var canvas = d3.select('#green').append('svg')
-         .attr('width', settings.width.small)
-         .attr('height', settings.height.small)
-
-      // GREEN PATH
-      canvas.append('path')
-         .attr('fill', settings.background.green)
-         .attr('stroke', settings.border.color)
-         .attr('stroke-width', settings.border.size)
-         .attr('d', data.green.paths.solo)
-         .attr('opacity', settings.opacity)
-
-   // GENERATE & PUSH BLUE PATH
-   data.blue.paths.solo = solo_path(data.blue, settings);
-
-      // GENERATE GRAPH CANVAS
-      var canvas = d3.select('#blue').append('svg')
-         .attr('width', settings.width.small)
-         .attr('height', settings.height.small)
-
-      // BLUE PATH
-      canvas.append('path')
-         .attr('fill', settings.background.blue)
-         .attr('stroke', settings.border.color)
-         .attr('stroke-width', settings.border.size)
-         .attr('d', data.blue.paths.solo)
-         .attr('opacity', settings.opacity)
+   data = solo_paths(data, settings);
 
    log(data)
    log(settings)
