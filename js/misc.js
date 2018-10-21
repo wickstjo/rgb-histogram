@@ -95,6 +95,8 @@ function solo_paths(data, settings) {
                .attr('cy', (data) => { return yScale(data) })
                .attr('r', dotsize)
                .attr('fill', settings.dot[color])
+               .on('mouseover', function() { d3.select(this).attr("r", dotsize * 3).style('transition', '.2s') })
+               .on('mouseout', function() { d3.select(this).attr("r", dotsize).style('transition', '.2s') })
    });
 
    // RETURN MODIFIED DATA OBJECT
