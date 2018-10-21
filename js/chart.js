@@ -121,10 +121,8 @@ function drawImage(image) {
       data.blue.values[data.content[i + 2]] += 1;
    }
 
-   // MAKE COLOR CLUSTERS FOR READABILITY
-   data.red.values = clusterify(data.red.values, settings.cluster);
-   data.green.values = clusterify(data.green.values, settings.cluster);
-   data.blue.values = clusterify(data.blue.values, settings.cluster);
+   // CONVERT COLOR VALUES TO CLUSTERS
+   data = clusterify(data, settings);
 
    // FIND HIGHEST VALUE OF EACH COLOR
    data.red.highest = d3.max(data.red.values);

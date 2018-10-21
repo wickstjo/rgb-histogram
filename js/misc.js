@@ -1,29 +1,39 @@
-// CREATE COLOR CLUSTER
-function clusterify(colors, size) {
+// CONVERT COLOR VALUES TO CLUSTERS
+function clusterify(data, settings) {
 
-   // CLUSTER SETTINGS
-   var cluster = [];
+   // COLOR ARRAY
+   var colors = ['red', 'green', 'blue'];
 
-   // LOOP THROUGH ALL COLORS, INCREMENT WITH CLUSTER SIZE
-   for (var x = 0; x < colors.length - 1; x+= size) {
+   // LOOP THROUGH COLORS & APPEND A PATH
+   colors.forEach(color => {
 
-      // RESET VALUE
-      var value = 0;
-      
-      // ADD CLUSTER VALUES TOGETHER
-      for (var y = 0; y < size; y++) {
-         value += colors[x + y];
+      // CLUSTER SETTINGS
+      var cluster = [];
+
+      // LOOP THROUGH ALL COLORS, INCREMENT WITH CLUSTER SIZE
+      for (var x = 0; x < data[color].values.length - 1; x+= settings.cluster) {
+
+         // RESET VALUE
+         var value = 0;
+         
+         // ADD CLUSTER VALUES TOGETHER
+         for (var y = 0; y < settings.cluster; y++) {
+            value += data[color].values[x + y];
+         }
+
+         // DIVIDE SUM BY CLOSTER SIZE
+         value = value / settings.cluster;
+
+         // PUSH INTO CONTAINER
+         cluster.push(value)
       }
 
-      // DIVIDE SUM BY CLOSTER SIZE
-      value = value / size;
+      // REPLACE VALUES ARRAY WITH CLUSTER ARRAY
+      data[color].values = cluster;
+   });
 
-      // PUSH INTO CONTAINER
-      cluster.push(value)
-   }
-
-   // RETURN CLUSTER
-   return cluster;
+   // RETURN MODIFIED DATA OBJECT
+   return data;
 }
 
 // GENERATE PATH FOR A SINGLE COLOR
