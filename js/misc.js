@@ -86,14 +86,15 @@ function solo_paths(data, settings) {
                .attr('cy', (data) => { return yScale(data) })
                .attr('r', dotsize)
                .attr('fill', settings.dot[color])
+               .style('transition', '.2s')
+
                .on('mouseover', function(d) {
                   d3.select(this).attr("r", dotsize * 3)
                   $('#tooltip').html(Math.ceil(d))
                   $('#tooltip').css('opacity', 1)
-                  var offset = $('#tooltip').width() / 1.5;
-                  $('#tooltip').css('left', d3.event.pageX - offset + 'px')
+                  $('#tooltip').css('left', d3.event.pageX - ($('#tooltip').width() / 1.5) + 'px')
                   $('#tooltip').css('top', d3.event.pageY + 20 + 'px')
-               })
+               }) 
                .on('mouseout', function() {
                   d3.select(this).attr("r", dotsize)
                   $('#tooltip').css('opacity', 0)

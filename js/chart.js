@@ -93,8 +93,8 @@ function drawImage(image) {
          blue: '#7D84DA', 
       },
       radius: {
-         large: 5,
-         medium: 3,
+         large: 6,
+         medium: 4,
          small: 1.5
       },
       opacity: 0.6,
