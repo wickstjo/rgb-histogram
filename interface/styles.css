@@ -1,5 +1,11 @@
+@font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/main.woff');
+}
+
 body {
    background: url('img/bg.png');
+   font: 13px 'Open Sans', verdana;
 	margin: 0px;
    padding: 30px;
 }
@@ -35,4 +41,17 @@ table, tr, td {
 
 #blue {
    margin-left: 7.5px;
+}
+
+#tooltip {
+   background: black;
+   font: 13px 'Open Sans', verdana;
+   color: white;
+   padding: 6px;
+   width: fit-content;
+   text-align: center;
+   border-radius: 4px;
+   position: absolute;
+   opacity: 0;
+   transition: .2s;
 }

@@ -64,11 +64,6 @@ function solo_paths(data, settings) {
          .y0(yScale(0))
          .y1((data) => { return yScale(data) })
 
-      // X-AXIS
-      var yAxis = d3.axisRight(yScale)
-         .tickPadding(7)
-         .ticks(5)
-
       // GENERATE PATH
       data[color].paths.solo = pathify(data[color].values);
 
@@ -76,10 +71,6 @@ function solo_paths(data, settings) {
       var canvas = d3.select('#' + color).append('svg')
          .attr('width', settings.width.small)
          .attr('height', settings.height.small)
-
-      canvas.append('g')
-      .attr('class', 'yAxis')
-      .call(yAxis)
 
       // ADD PATH
       canvas.append('path')
@@ -95,8 +86,18 @@ function solo_paths(data, settings) {
                .attr('cy', (data) => { return yScale(data) })
                .attr('r', dotsize)
                .attr('fill', settings.dot[color])
-               .on('mouseover', function() { d3.select(this).attr("r", dotsize * 3).style('transition', '.2s') })
-               .on('mouseout', function() { d3.select(this).attr("r", dotsize).style('transition', '.2s') })
+               .on('mouseover', function(d) {
+                  d3.select(this).attr("r", dotsize * 3)
+                  $('#tooltip').html(Math.ceil(d))
+                  $('#tooltip').css('opacity', 1)
+                  var offset = $('#tooltip').width() / 1.5;
+                  $('#tooltip').css('left', d3.event.pageX - offset + 'px')
+                  $('#tooltip').css('top', d3.event.pageY + 20 + 'px')
+               })
+               .on('mouseout', function() {
+                  d3.select(this).attr("r", dotsize)
+                  $('#tooltip').css('opacity', 0)
+               })
    });
 
    // RETURN MODIFIED DATA OBJECT
