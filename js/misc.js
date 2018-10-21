@@ -50,7 +50,7 @@ function solo_paths(data, settings) {
 
       // Y-SCALING
       var yScale = d3.scaleLinear()
-         .domain([0, data[color].highest * settings.multiplier])
+         .domain([data[color].highest * settings.multiplier, 0])
          .range([0, settings.height.small])
 
       // X-SCALING
@@ -61,8 +61,13 @@ function solo_paths(data, settings) {
       // GENERATE PATH METHOD
       var pathify = d3.area()
          .x((data, i) => { return xScale(i) })
-         .y0(settings.height.small - yScale(0))
-         .y1((data) => { return settings.height.small - yScale(data) })
+         .y0(yScale(0))
+         .y1((data) => { return yScale(data) })
+
+      // X-AXIS
+      var yAxis = d3.axisRight(yScale)
+         .tickPadding(7)
+         .ticks(5)
 
       // GENERATE PATH
       data[color].paths.solo = pathify(data[color].values);
@@ -71,6 +76,10 @@ function solo_paths(data, settings) {
       var canvas = d3.select('#' + color).append('svg')
          .attr('width', settings.width.small)
          .attr('height', settings.height.small)
+
+      canvas.append('g')
+      .attr('class', 'yAxis')
+      .call(yAxis)
 
       // ADD PATH
       canvas.append('path')
@@ -83,7 +92,7 @@ function solo_paths(data, settings) {
          .data(data[color].values)
             .enter().append('circle')
                .attr('cx', (data, i) => { return xScale(i) })
-               .attr('cy', (data) => { return settings.height.small - yScale(data) })
+               .attr('cy', (data) => { return yScale(data) })
                .attr('r', dotsize)
                .attr('fill', settings.dot[color])
    });
@@ -97,7 +106,7 @@ function relational_paths(data, settings) {
 
    // Y-SCALING -- BASED ON OVERALL HIGHEST VALUE
    var yScale = d3.scaleLinear()
-      .domain([0, d3.max([data.red.highest, data.blue.highest, data.green.highest]) * 1.01])
+      .domain([d3.max([data.red.highest, data.blue.highest, data.green.highest]) * 1.01, 0])
       .range([0, settings.height.large])
 
    // X-SCALING
@@ -105,11 +114,16 @@ function relational_paths(data, settings) {
       .domain([0, data.red.values.length - 1])
       .rangeRound([0, settings.width.large])
 
+   // X-AXIS
+   var yAxis = d3.axisRight(yScale)
+      .tickPadding(7)
+      .ticks(5)
+
    // GENERATE PATH METHOD
    var pathify = d3.area()
       .x((data, i) => { return xScale(i) })
-      .y0(settings.height.large - yScale(0))
-      .y1((data) => { return settings.height.large - yScale(data) })
+      .y0(yScale(0))
+      .y1((data) => { return yScale(data) })
 
    // CONVERT SCALED VALUES INTO PATHS
    data.red.paths.relational = pathify(data.red.values);
@@ -123,6 +137,11 @@ function relational_paths(data, settings) {
    var canvas = d3.select('#relational').append('svg')
       .attr('width', settings.width.large)
       .attr('height', settings.height.large)
+
+      canvas.append('g')
+         .attr('class', 'yAxis')
+         .attr('text', 'red')
+         .call(yAxis)
 
       // COLOR ARRAY
       var colors = ['red', 'green', 'blue'];
@@ -142,7 +161,7 @@ function relational_paths(data, settings) {
                .enter().append('circle')
                   .attr('class', () => { return 'group-' + color })
                   .attr('cx', (data, i) => { return xScale(i) })
-                  .attr('cy', (data) => { return settings.height.large - yScale(data) })
+                  .attr('cy', (data) => { return yScale(data) })
                   .attr('r', dotsize)
                   .attr('fill', settings.dot[color])
       });
