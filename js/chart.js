@@ -94,8 +94,8 @@ function drawImage(image) {
       },
       radius: {
          large: 6,
-         medium: 4,
-         small: 1.5
+         medium: 4.5,
+         small: 2
       },
       opacity: 0.6,
       cluster: 15,

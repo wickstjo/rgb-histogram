@@ -91,7 +91,7 @@ function solo_paths(data, settings) {
                .on('mouseover', function(d) {
                   d3.select(this).attr("r", dotsize * 3)
                   $('#tooltip').html(Math.ceil(d))
-                  $('#tooltip').css('opacity', 1)
+                  $('#tooltip').css('opacity', 0.8)
                   $('#tooltip').css('left', d3.event.pageX - ($('#tooltip').width() / 1.5) + 'px')
                   $('#tooltip').css('top', d3.event.pageY + 20 + 'px')
                }) 
