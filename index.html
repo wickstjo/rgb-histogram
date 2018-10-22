@@ -5,7 +5,49 @@
    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
-<body></body>
+<body>
+   <canvas id="myCanvas"></canvas>
+   <table id="settings"><tr><td><div id="inner">
+      <table>
+         <tr>
+            <td>Image:</td>
+            <td>
+               <select id="image">
+                  <option>First</option>
+                  <option>Second</option>
+                  <option>Third</option>
+                  <option>Fourth</option>
+               </select>
+            </td>
+         </tr>
+      </table>
+      <hr>
+      <table>
+         <tr>
+            <td>Cluster Size:</td>
+            <td>
+               <select id="cluster">
+                  <option>1</option>
+                  <option>3</option>
+                  <option>15</option>
+                  <option>17</option>
+               </select>
+            </td>
+         </tr>
+      </table>
+   </div></td></tr></table>
+   <div id="tooltip"></div>
+   <div id="innerbody">
+      <div id="shared">
+         <table><tr>
+            <td><div id="red"></div></td>
+            <td><div id="green"></div></td>
+            <td><div id="blue"></div></td>
+         </tr></table>
+      </div>
+      <div id="relational"></div>
+   </div>
+</body>
 <script src="js/misc.js"></script>
 <script src="js/settings.js"></script>
 <script src="js/chart.js"></script>
