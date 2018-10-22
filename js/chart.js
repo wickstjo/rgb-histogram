@@ -6,7 +6,7 @@ image.src = 'data/Third.jpg';
 window.onload = () => { drawImage(image); };
 
 // CHART RENDERING FUNC
-function drawImage(image, foo = 3) {
+function drawImage(image, cluster_size = 3) {
 
    // SET IMAGE CANVAS
    var canvas = $('#myCanvas')[0];
@@ -81,7 +81,7 @@ function drawImage(image, foo = 3) {
          small: 2
       },
       opacity: 0.6,
-      cluster: foo,
+      cluster: cluster_size,
       multiplier: 1.02
    }
 

@@ -102,6 +102,10 @@ hr {
    border-bottom: 1px dotted #4F4F4F;
 }
 
-select {
-   width: 100px;
+select, input {
+   width: 150px;
+   font: 13px 'Open Sans', verdana;
+   border: 0px solid black;
+   margin: 0px;
+   outline: none;
 }

@@ -1,5 +1,5 @@
-// HIDE WINDOW WHEN YOU PRESS ESC
-jQuery(document).on('keyup', (evt) => {
+// KEYBIND TO TRIGGER SETTINGS
+$(document).on('keyup', (evt) => {
 
    // WHEN 'ESC' OR 'S' IS PRESSED
    if (evt.keyCode == 27 || evt.keyCode == 87) {
