@@ -22,8 +22,7 @@ table, tr, td {
 }
 
 #innerbody {
-   padding-top: 30px;
-   padding-left: 30px;
+   padding: 30px;
 }
 
 #relational, #red, #green, #blue {
