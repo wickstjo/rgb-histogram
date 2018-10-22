@@ -208,5 +208,10 @@ function clusterdot(settings, window) {
    return size;
 }
 
+// WAIT FOR X MS FUNCTION
+function sleep (time) {
+   return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 // SHORTHAND FOR CONSOLE LOGGING
 function log(stuff) { console.log(stuff); }

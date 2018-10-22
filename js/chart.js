@@ -1,12 +1,12 @@
 // CREATE IMAGE OBJECT
 var image = new Image();
-image.src = 'data/3.jpg';
+image.src = 'data/Third.jpg';
 
 // WHEN IMAGE OBJECT IS LOADED, RENDER CHART
 window.onload = () => { drawImage(image); };
 
 // CHART RENDERING FUNC
-function drawImage(image) {
+function drawImage(image, foo = 3) {
 
    // SET IMAGE CANVAS
    $('body').append('<canvas id="myCanvas"></canvas>');
@@ -23,15 +23,46 @@ function drawImage(image) {
 
    // GENERATE SELECTORS
    var selectors = `
-      <div id="shared">
-         <table><tr>
-            <td><div id="red"></div></td>
-            <td><div id="green"></div></td>
-            <td><div id="blue"></div></td>
-         </tr></table>
-      </div>
-      <div id="relational"></div>
+      <table id="settings"><tr><td><div id="inner">
+         <table>
+            <tr>
+               <td>Image:</td>
+               <td>
+                  <select id="image">
+                     <option>First</option>
+                     <option>Second</option>
+                     <option>Third</option>
+                     <option>Fourth</option>
+                  </select>
+               </td>
+            </tr>
+         </table>
+         <hr>
+         <table>
+            <tr>
+               <td>Cluster Size:</td>
+               <td>
+                  <select id="cluster">
+                     <option>1</option>
+                     <option>3</option>
+                     <option>15</option>
+                     <option>17</option>
+                  </select>
+               </td>
+            </tr>
+         </table>
+      </div></td></tr></table>
       <div id="tooltip"></div>
+      <div id="innerbody">
+         <div id="shared">
+            <table><tr>
+               <td><div id="red"></div></td>
+               <td><div id="green"></div></td>
+               <td><div id="blue"></div></td>
+            </tr></table>
+         </div>
+         <div id="relational"></div>
+      </div>
    `;
 
    // RENDER THEM IN
@@ -98,7 +129,7 @@ function drawImage(image) {
          small: 2
       },
       opacity: 0.6,
-      cluster: 15,
+      cluster: foo,
       multiplier: 1.02
    }
 
