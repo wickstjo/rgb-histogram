@@ -31,7 +31,7 @@ function drawImage(image) {
          </tr></table>
       </div>
       <div id="relational"></div>
-      <div id="tooltip">asdsads</div>
+      <div id="tooltip"></div>
    `;
 
    // RENDER THEM IN

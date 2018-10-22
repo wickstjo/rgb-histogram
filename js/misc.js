@@ -58,6 +58,11 @@ function solo_paths(data, settings) {
          .domain([0, data[color].values.length - 1])
          .rangeRound([0, settings.width.small])
 
+      // X-AXIS
+      var yAxis = d3.axisRight(yScale)
+         .tickPadding(7)
+         .ticks(3)
+
       // GENERATE PATH METHOD
       var pathify = d3.area()
          .x((data, i) => { return xScale(i) })
@@ -71,6 +76,11 @@ function solo_paths(data, settings) {
       var canvas = d3.select('#' + color).append('svg')
          .attr('width', settings.width.small)
          .attr('height', settings.height.small)
+
+      canvas.append('g')
+         .attr('class', 'yAxis')
+         .call(yAxis)
+         .style('pointer-events', 'unset')
 
       // ADD PATH
       canvas.append('path')
@@ -90,8 +100,8 @@ function solo_paths(data, settings) {
 
                .on('mouseover', function(d) {
                   d3.select(this).attr("r", dotsize * 3)
-                  $('#tooltip').html(Math.ceil(d))
-                  $('#tooltip').css('opacity', 0.8)
+                  $('#tooltip').html(String(Math.ceil(d)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."))
+                  $('#tooltip').css('opacity', 1)
                   $('#tooltip').css('left', d3.event.pageX - ($('#tooltip').width() / 1.5) + 'px')
                   $('#tooltip').css('top', d3.event.pageY + 20 + 'px')
                }) 
@@ -144,7 +154,6 @@ function relational_paths(data, settings) {
 
       canvas.append('g')
          .attr('class', 'yAxis')
-         .attr('text', 'red')
          .call(yAxis)
 
       // COLOR ARRAY
